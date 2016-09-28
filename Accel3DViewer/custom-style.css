@@ -1,0 +1,23 @@
+.viewer3d.viewer3DTitle {
+  color: #6a6a71;
+  padding-top: 10px;
+}
+
+.viewer3d.widget-container{
+  width: 150px;
+  height: 100px;
+  background-color: white;
+}
+
+.viewer3d canvas{
+  width: 100%;
+  height: 100%;
+}
+
+
+.viewer3DContainer {
+  width: 274px;
+  text-align: center;
+  background-color: black;
+  border-radius: 5px;
+}

@@ -1,0 +1,12 @@
+{
+  "name": "replicator-Accel3DViewer",
+  "version": "0.1.0",
+  "description": "Display 3D view",
+  "homepage": "",
+  "authors": [
+    "Roger Camargo"
+  ],
+  "main": "main.js",
+  "keywords": [],
+  "license": "MIT"
+}
