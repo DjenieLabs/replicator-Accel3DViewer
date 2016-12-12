@@ -24,7 +24,7 @@ define(['RIB', 'PropertiesPanel', 'utils'], function(RIB, Ppanel, utils){
 
   Viewer3D.onLoad = function(){
     var that = this;
-    this._vw = 150;
+    this._vw = 100;
     this._vh = 100;
 
     this.alpha = 0.2;
@@ -57,34 +57,54 @@ define(['RIB', 'PropertiesPanel', 'utils'], function(RIB, Ppanel, utils){
 
     // 3D Graphics initscene = new THREE.Scene();
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera( 75, this._vw / this._vh, 1, 10000 );
-    this.camera.position.z = 250;
+    this.camera = new THREE.PerspectiveCamera( 70, this._vw / this._vh, 1, 1000 );
+    this.camera.position.y = 150;
+    this.camera.position.z = 400;
 
     // Load materials
     this.materials = [];
     var totalLoaded = 0;
     var loader = new THREE.TextureLoader();
     var i = 1;
-    var loadNext = function(){
-      loader.load(that.basePath+'/assets/images/block'+i+'.png', function (texture) {
-        var mat = new THREE.MeshBasicMaterial({color: 0xffffff, map: texture});
-        that.materials.push(mat);
-        if(i == 6){
-          return renderObjects.call(that);
-        }else{
-          i++;
-          return loadNext();
-        }
-      });
-    };
 
-    return loadNext();
+    // If texture mode is used.
+    // var loadNext = function(){
+    //   loader.load(that.basePath+'/assets/images/block'+i+'.png', function (texture) {
+    //     var mat = new THREE.MeshBasicMaterial({color: 0xffffff, map: texture});
+    //     that.materials.push(mat);
+    //     if(i == 6){
+    //       return renderObjects.call(that);
+    //     }else{
+    //       i++;
+    //       return loadNext();
+    //     }
+    //   });
+    // };
+
+    // return loadNext();
+
+    renderObjects.call(that);
   };
 
   // 3D rendering.
   function renderObjects(){
-    var geometry = new THREE.BoxGeometry(200, 100, 200, 3, 3, 3);
-    this.mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial(this.materials) );
+    
+    
+    // With Colour
+    var geometry = new THREE.BoxGeometry( 200, 200, 200); 
+    // var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    for ( var i = 0; i < geometry.faces.length; i += 2 ) {
+      var hex = Math.random() * 0xffffff;
+      geometry.faces[ i ].color.setHex( hex );
+      geometry.faces[ i + 1 ].color.setHex( hex );
+    }
+		var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors, overdraw: 0.5 } );
+    this.mesh = new THREE.Mesh( geometry, material );
+    this.mesh.position.y = 150;
+
+    // With Texture
+    // var geometry = new THREE.BoxGeometry(200, 200, 200, 3, 3, 3);
+    // this.mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial(this.materials) );
 
     this.scene.add(this.mesh);
     this.renderer = new THREE.WebGLRenderer({alpha: true});
