@@ -43,7 +43,7 @@ define(['RIB', 'PropertiesPanel', 'utils'], function(RIB, Ppanel, utils){
     this.preloadTemplate('properties.html').then(function(template){
       that._propTemplate = template;
       // Load three.js
-      require([that.assetsFolder + 'assets/three.min.js'], function(threejs){
+      require([that.basePath + 'assets/three.min.js'], function(threejs){
         console.log("threejs loaded loaded: ", threejs);
       });
     }).catch(function(err){
@@ -66,7 +66,7 @@ define(['RIB', 'PropertiesPanel', 'utils'], function(RIB, Ppanel, utils){
     var loader = new THREE.TextureLoader();
     var i = 1;
     var loadNext = function(){
-      loader.load(that.assetsFolder+'/assets/images/block'+i+'.png', function (texture) {
+      loader.load(that.basePath+'/assets/images/block'+i+'.png', function (texture) {
         var mat = new THREE.MeshBasicMaterial({color: 0xffffff, map: texture});
         that.materials.push(mat);
         if(i == 6){
